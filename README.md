@@ -53,6 +53,7 @@ Once the grid is set up and initialized you can use tensorinterp to interpolate 
 You can interpolate multiple values at once by putting a multiple rows as third argument into ltinterp. 
 The resulting vector always has 1 column and as many rows as the third argument.
 
+
 Performance
 -------------------------
 On a standard 2D peaks function
@@ -63,4 +64,6 @@ On a standard 2D peaks function
 | tensorinterp (time)      | 0.26 | 0.25 | 0.26 | 0.4070 | 1.31109 |
 | interp2 (max error)      | 4.04 | 1.20 | 0.36 | 0.0216 | 0.00553 |
 | tensorinterp (max error) | 3.55 | 0.98 | 0.25 | 0.0124 | 0.00292 |
+
+All in all on average 10-fold acceleration with half the errors. Other functions produce similar results.
 
