@@ -64,9 +64,10 @@ I used the following rather ugly function to test the C2 interpolation
 | Grid step                  |  1.0000 |  0.5000 |  0.2500 |  0.0625 | 0.03125 |
 |----------------------------|---------|---------|---------|---------|---------|
 | spline interp2 (time)      | 27.0718 | 26.5186 | 28.6952 | 41.5780 | 83.8287 |
-| tensorinterp (time)        |  1.0000 |  0.9621 |  0.9079 |  0.4070 | 1.31109 |
-| spline interp2 (max error) |  0.2576 |  0.2646 |  0.2939 |  0.5179 |  0.0201 |
+| tensorinterp (time)        |  0.2576 |  0.2646 |  0.2939 |  0.4070 | 1.31109 |
+| spline interp2 (max error) |  1.0000 |  0.9621 |  0.9079 |  0.5179 |  0.0201 |
 | tensorinterp (max error)   |  1.0000 |  0.9894 |  0.9594 |  0.5227 |  0.0203 |
 
 All in all on average 100-fold acceleration with approximately the same magnitude of errors.
+
 
