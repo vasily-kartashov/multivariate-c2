@@ -56,14 +56,17 @@ The resulting vector always has 1 column and as many rows as the third argument.
 
 Performance
 -------------------------
-On a standard 2D peaks function
+I used the following rather ugly function to test the C2 interpolation
 
-| Grid step                | 1.00 | 0.50 | 0.25 | 0.0625 | 0.03125 |
-|--------------------------|------|------|------|--------|---------|
-| interp2 (time)           | 2.63 | 2.64 | 2.71 | 3.4385 | 5.12514 |
-| tensorinterp (time)      | 0.26 | 0.25 | 0.26 | 0.4070 | 1.31109 |
-| interp2 (max error)      | 4.04 | 1.20 | 0.36 | 0.0216 | 0.00553 |
-| tensorinterp (max error) | 3.55 | 0.98 | 0.25 | 0.0124 | 0.00292 |
+    min(1, max(0, sin(pi * x) .* exp(y .^ 2)));
 
-All in all on average 10-fold acceleration with half the errors. Other functions produce similar results.
+
+| Grid step                  |  1.0000 |  0.5000 |  0.2500 |  0.0625 | 0.03125 |
+|----------------------------|---------|---------|---------|---------|---------|
+| spline interp2 (time)      | 27.0718 | 26.5186 | 28.6952 | 41.5780 | 83.8287 |
+| tensorinterp (time)        |  1.0000 |  0.9621 |  0.9079 |  0.4070 | 1.31109 |
+| spline interp2 (max error) |  0.2576 |  0.2646 |  0.2939 |  0.5179 |  0.0201 |
+| tensorinterp (max error)   |  1.0000 |  0.9894 |  0.9594 |  0.5227 |  0.0203 |
+
+All in all on average 100-fold acceleration with approximately the same magnitude of errors.
 
