@@ -58,16 +58,31 @@ Performance
 -------------------------
 I used the following rather ugly function to test the C2 interpolation
 
-    min(1, max(0, sin(pi * x) .* exp(y .^ 2)));
+    f = @(x, y)  min(1, max(0, sin(pi * x) .* exp(y .^ 2)));
 
-
-| Grid step                  |  1.0000 |  0.5000 |  0.2500 |  0.0625 | 0.03125 |
-|----------------------------|---------|---------|---------|---------|---------|
-| spline interp2 (time)      | 27.0718 | 26.5186 | 28.6952 | 41.5780 | 83.8287 |
-| tensorinterp (time)        |  0.2576 |  0.2646 |  0.2939 |  0.4070 | 1.31109 |
-| spline interp2 (max error) |  1.0000 |  0.9621 |  0.9079 |  0.5179 |  0.0201 |
-| tensorinterp (max error)   |  1.0000 |  0.9894 |  0.9594 |  0.5227 |  0.0203 |
+| step size              |  1.00000000 |  0.50000000 |  0.25000000 |  0.12500000 |  0.06250000 |  0.03125000 |
+|------------------------|----------|----------|----------|----------|----------|----------|
+| linear interp2 (time)  |  4.45180619 |  4.54680184 |  4.84996840 |  5.39132561 |  7.66961989 |  15.19599350 |
+| tensorinterp (time)    |  0.06541921 |  0.06483289 |  0.06430650 |  0.06496665 |  0.06267017 |  0.06510319 |
+| linear interp2 (error) |  1.00000000 |  0.97538862 |  0.94113427 |  0.87040651 |  0.70139536 |  0.32155183 |
+| tensorinterp (error)   |  1.00000000 |  0.99513808 |  0.98109631 |  0.92873718 |  0.74976413 |  0.27757992 |
 
 All in all on average 100-fold acceleration with approximately the same magnitude of errors.
+
+For a three dimensional function
+
+    f = @(x, y, z)  x + sin(y .* z) .* max(exp(x - y), ones(size(x)));
+
+
+we get the following results 
+
+| step size              |  1.00000 |  0.50000 |  0.25000 |  0.12500 |
+|------------------------|----------|----------|----------|----------|
+| spline interp3 (time)  |  23.44589 |  63.92122 |  74.83716 |  347.18997 |
+| tensorinterp (time)    |  0.47495 |  0.49752 |  0.48584 |  0.57527 |
+| spline interp3 (error) |  0.44298 |  0.05928 |  0.03329 |  0.01165 |
+| tensorinterp (error)   |  0.44298 |  0.05572 |  0.03058 |  0.02129 |
+
+As one can easilty see, the accuracy stays similar in both cases while the performance differs in magnitudes.
 
 
