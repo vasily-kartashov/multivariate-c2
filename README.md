@@ -31,7 +31,7 @@ the last parameter defines the distribution of the dots. The following distribut
  * triple-exponential
  * generalized polynomial
 
-The method getaxis returns an array, so you can alway use your own axes, with points concentrated where you need them.
+The method `getaxis` returns an array, so you can alway use your own axes, with points concentrated where you need them.
 
 
 Initialize the grid
