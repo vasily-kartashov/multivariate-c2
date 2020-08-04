@@ -4,24 +4,25 @@ multivariate-C2
 Multivariate shape-preserving C2 tensor interpolation
 
 
-Compilation
+Compile
 ------------------
 Compile the extension for you platform
 
     mex tensorinterp.cpp pchip.cpp
     
 
-Settings up the grid
+Set up a grid
 ------------------
-Define the axes for your tensor and create the grid spanned by these axes. The number of axes is unlimited. 
+Define the axes for your tensor and create the grid spanned by them. The number of axes is theoretically unlimited. 
     
     axis1 = getaxis(-1, 1, 20, 'equidistant');
     axis2 = getaxis(-1, 1, 20, 'equidistant');
     grid = tensorgrid(axis1, axis2);
 
-The first two parameters of getaxis define define lower and upper boundary, the third parameter sets the number of points, 
-the last parameter defines the distribution of the dots. The following distributions are implemented
+The first two parameters of `getaxis` define the lower and the upper boundaries, and the third parameter sets the number of points, 
+the last parameter defines the distribution of the dots. The following distributions are supported
 
+ * equidistant
  * chebyshev
  * quadratic
  * cubic
@@ -30,7 +31,7 @@ the last parameter defines the distribution of the dots. The following distribut
  * triple-exponential
  * generalized polynomial
 
-The method getaxis returns an array, so you can alway use your own axes, with points concentrated at the most interesting areas
+The method getaxis returns an array, so you can alway use your own axes, with points concentrated where you need them.
 
 
 Initialize the grid
@@ -50,8 +51,8 @@ Once the grid is set up and initialized you can use tensorinterp to interpolate 
 
     g = @(x, y) tensorinterp(grid, vs, [x, y]);
 
-You can interpolate multiple values at once by putting a multiple rows as third argument into ltinterp. 
-The resulting vector always has 1 column and as many rows as the third argument.
+You can interpolate multiple values at once by passing multiple rows as the third argument of `ltinterp`. 
+The resulting vector will have 1 column and as many rows as the third argument.
 
 
 Performance
@@ -67,12 +68,11 @@ I used the following rather ugly function to test the C2 interpolation
 | linear interp2 (error) |  1.00000 |  0.97538 |  0.94113 |  0.87040 |  0.70139 |  0.32155 |
 | tensorinterp (error)   |  1.00000 |  0.99513 |  0.98109 |  0.92873 |  0.74976 |  0.27757 |
 
-All in all on average 100-fold acceleration with approximately the same magnitude of errors.
+There's an average 100-fold acceleration with approximately the same magnitude of errors.
 
 For a three dimensional function
 
     f = @(x, y, z)  x + sin(y .* z) .* max(exp(x - y), ones(size(x)));
-
 
 we get the following results 
 
@@ -83,6 +83,4 @@ we get the following results
 | spline interp3 (error) |  0.44298 |  0.05928 |  0.03329 |  0.01165 |
 | tensorinterp (error)   |  0.44298 |  0.05572 |  0.03058 |  0.02129 |
 
-As one can easilty see, the accuracy stays similar in both cases while the performance differs in magnitudes.
-
-
+As with example above, the inerpolation accuracy stays similar to `interp*`, while the performance differs in magnitudes.
